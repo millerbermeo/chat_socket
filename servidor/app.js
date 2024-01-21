@@ -5,10 +5,16 @@ import http from 'http'
 
 const app = express()
 const server = http.createServer(app)
-const io = new SocketIOServer(server)
+const io = new SocketIOServer(server, {cors: {
+    origin : "http://localhost:5173"
+}})
 
 io.on('connection', socket => {
-    console.log("cleinet coenctado")
+    console.log("cliente conectado")
+
+    socket.on('message', (data)=> {
+        console.log(data)
+    })
 });
 
 const port = 3000;
